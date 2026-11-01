@@ -1,0 +1,755 @@
+/* 三番云 - 浮世绘三叠浪潮与和风琥珀杂志风 (Ukiyo-e Triple Wave & Warm Amber Editorial) */
+:root {
+  --parchment: #FBF7F0;
+  --parchment-deep: #F3ECE0;
+  --paper-card: #FFFFFF;
+  --indigo: #1D3557;
+  --indigo-dark: #112239;
+  --amber: #D97706;
+  --amber-bright: #F59E0B;
+  --vermilion: #C1121F;
+  --ink-text: #1F242D;
+  --ink-sub: #4B5563;
+  --rule-line: #D6CBB9;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--parchment);
+  color: var(--ink-text);
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  line-height: 1.72;
+}
+
+body {
+  background-color: var(--parchment);
+  color: var(--ink-text);
+  overflow-x: hidden;
+}
+
+/* Prominent Custom Hyperlink Color - Vermilion Red / Deep Amber, identical visited state */
+a, a:visited, a:active {
+  color: var(--vermilion);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--amber);
+}
+
+.editorial-wrap {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 26px;
+}
+
+/* Header */
+.ukiyo-header {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  background: rgba(251, 247, 240, 0.96);
+  border-bottom: 2px solid var(--indigo);
+  box-shadow: 0 4px 16px rgba(29, 53, 87, 0.06);
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  gap: 20px;
+}
+
+.ukiyo-brand, .ukiyo-brand:visited {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.ukiyo-logo-svg {
+  height: 48px;
+  width: auto;
+  display: block;
+}
+
+.ukiyo-nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.ukiyo-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.ukiyo-link, .ukiyo-link:visited {
+  color: var(--indigo);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 5px 8px;
+  border-bottom: 2px solid transparent;
+}
+
+.ukiyo-link:hover, .ukiyo-link.active {
+  color: var(--vermilion);
+  border-bottom-color: var(--vermilion);
+}
+
+/* Buttons */
+.btn-vermilion, .btn-vermilion:visited {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--vermilion);
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 800;
+  padding: 12px 28px;
+  border-radius: 3px;
+  border: 2px solid var(--vermilion);
+  box-shadow: 4px 4px 0px var(--indigo);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.btn-vermilion:hover {
+  color: #FFFFFF;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--indigo);
+}
+
+.btn-amber-ink, .btn-amber-ink:visited {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--parchment-deep);
+  color: var(--indigo);
+  text-decoration: none;
+  font-weight: 800;
+  padding: 12px 26px;
+  border-radius: 3px;
+  border: 2px solid var(--indigo);
+  box-shadow: 4px 4px 0px var(--amber);
+  transition: transform 0.18s ease;
+}
+
+.btn-amber-ink:hover {
+  color: var(--vermilion);
+  transform: translate(-2px, -2px);
+}
+
+.nav-seal-btn {
+  padding: 8px 18px;
+  font-size: 0.9rem;
+}
+
+/* Centered Editorial Magazine Hero with Panoramic Stage */
+.hero-editorial {
+  padding: 64px 0 76px;
+  border-bottom: 3px double var(--indigo);
+  background:
+    radial-gradient(circle at 50% 15%, rgba(217, 119, 6, 0.12), transparent 60%),
+    var(--parchment);
+}
+
+.hero-editorial-top {
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto 42px;
+}
+
+.issue-stamp {
+  display: inline-block;
+  border: 1.5px solid var(--vermilion);
+  color: var(--vermilion);
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 4px 14px;
+  letter-spacing: 2px;
+  margin-bottom: 18px;
+  background: rgba(193, 18, 31, 0.05);
+}
+
+.hero-serif-title {
+  font-family: 'Songti SC', 'Noto Serif SC', 'STSong', serif;
+  font-size: 2.95rem;
+  line-height: 1.24;
+  font-weight: 900;
+  color: var(--indigo);
+  margin-bottom: 20px;
+}
+
+.hero-serif-title span {
+  color: var(--vermilion);
+  border-bottom: 3px solid var(--amber);
+}
+
+.hero-lead {
+  font-size: 1.1rem;
+  color: var(--ink-sub);
+  margin-bottom: 30px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Panoramic Ukiyo-e SVG Stage & Keyframe Animations */
+.panorama-frame {
+  background: var(--indigo-dark);
+  border: 3px solid var(--indigo);
+  border-radius: 6px;
+  padding: 16px;
+  box-shadow: 8px 8px 0px var(--rule-line);
+}
+
+.voyage-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@keyframes waveDriftSlow {
+  0%, 100% { transform: translateX(0px); }
+  50% { transform: translateX(-18px); }
+}
+
+@keyframes waveDriftFast {
+  0%, 100% { transform: translateX(0px); }
+  50% { transform: translateX(22px); }
+}
+
+@keyframes sunGlow {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+
+@keyframes cablePulse {
+  0% { stroke-dashoffset: 320; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.ukiyo-wave-back {
+  animation: waveDriftSlow 9s ease-in-out infinite;
+}
+
+.ukiyo-wave-mid {
+  animation: waveDriftFast 6.5s ease-in-out infinite;
+}
+
+.ukiyo-wave-front {
+  animation: waveDriftSlow 4.8s ease-in-out infinite;
+}
+
+.rising-amber-sun {
+  transform-origin: 480px 115px;
+  animation: sunGlow 4s ease-in-out infinite;
+}
+
+.subsea-fiber {
+  stroke-dasharray: 20 12;
+  animation: cablePulse 3s linear infinite;
+}
+
+/* Editorial Section Shared Styles */
+.chapter-section {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--rule-line);
+}
+
+.chapter-section.tinted {
+  background-color: var(--parchment-deep);
+}
+
+.chapter-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-bottom: 24px;
+  margin-bottom: 44px;
+  border-bottom: 2px solid var(--indigo);
+}
+
+.chapter-num {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--vermilion);
+  letter-spacing: 2px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.chapter-title {
+  font-family: 'Songti SC', 'Noto Serif SC', serif;
+  font-size: 2.15rem;
+  font-weight: 900;
+  color: var(--indigo);
+}
+
+.chapter-sub {
+  max-width: 460px;
+  font-size: 0.96rem;
+  color: var(--ink-sub);
+}
+
+/* Scroll-Storytelling Vertical Chapters (3 Core Advantages) */
+.chronicle-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.chronicle-card {
+  background: var(--paper-card);
+  border: 2px solid var(--indigo);
+  padding: 32px 26px;
+  box-shadow: 6px 6px 0px var(--rule-line);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.chronicle-icon-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.seal-tag {
+  background: var(--vermilion);
+  color: #FFFFFF;
+  font-size: 0.76rem;
+  font-weight: 800;
+  padding: 3px 10px;
+}
+
+.chronicle-card h3 {
+  font-family: 'Songti SC', 'Noto Serif SC', serif;
+  font-size: 1.38rem;
+  color: var(--indigo);
+  margin-bottom: 12px;
+}
+
+.chronicle-card p {
+  font-size: 0.95rem;
+  color: var(--ink-sub);
+}
+
+/* Streaming & AI Support (3 Editorial Showcase Columns) */
+.showcase-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.showcase-box {
+  background: var(--paper-card);
+  border-top: 5px solid var(--amber);
+  border-left: 1px solid var(--rule-line);
+  border-right: 1px solid var(--rule-line);
+  border-bottom: 2px solid var(--indigo);
+  padding: 30px 26px;
+}
+
+.showcase-box:nth-child(2) {
+  border-top-color: var(--vermilion);
+}
+
+.showcase-box:nth-child(3) {
+  border-top-color: var(--indigo);
+}
+
+.showcase-box h3 {
+  font-size: 1.28rem;
+  color: var(--indigo);
+  margin: 14px 0 10px;
+}
+
+.showcase-box p {
+  font-size: 0.95rem;
+  color: var(--ink-sub);
+}
+
+/* Horizontal Ledger Pricing Comparison Table (3 Tiers) */
+.ledger-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ledger-row {
+  display: grid;
+  grid-template-columns: 260px 1fr 220px;
+  align-items: center;
+  gap: 28px;
+  background: var(--paper-card);
+  border: 2px solid var(--indigo);
+  padding: 28px 32px;
+  box-shadow: 6px 6px 0px var(--rule-line);
+}
+
+.ledger-row.recommended {
+  background: #FFFDF9;
+  border-color: var(--vermilion);
+  box-shadow: 8px 8px 0px rgba(193, 18, 31, 0.22);
+}
+
+.ledger-title {
+  font-family: 'Songti SC', 'Noto Serif SC', serif;
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: var(--indigo);
+  margin-bottom: 6px;
+}
+
+.ledger-desc {
+  font-size: 0.88rem;
+  color: var(--ink-sub);
+}
+
+.ledger-specs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 20px;
+  list-style: none;
+  border-left: 1px dashed var(--rule-line);
+  border-right: 1px dashed var(--rule-line);
+  padding: 0 24px;
+}
+
+.ledger-specs li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.93rem;
+  color: var(--ink-text);
+}
+
+.ledger-price-col {
+  text-align: center;
+}
+
+.ledger-price {
+  font-size: 2.3rem;
+  font-weight: 900;
+  color: var(--vermilion);
+  line-height: 1.1;
+}
+
+.ledger-unit {
+  font-size: 0.85rem;
+  color: var(--ink-sub);
+  display: block;
+  margin-bottom: 14px;
+}
+
+/* Two-Column Editorial FAQ */
+.faq-two-col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 26px;
+}
+
+.faq-entry {
+  background: var(--paper-card);
+  border: 1.5px solid var(--indigo);
+  padding: 26px;
+}
+
+.faq-entry h3 {
+  font-size: 1.15rem;
+  color: var(--indigo);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.faq-entry p {
+  font-size: 0.95rem;
+  color: var(--ink-sub);
+}
+
+/* Seal-Stamped Reader Testimonials (3 Cards) */
+.seal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.seal-card {
+  background: var(--paper-card);
+  border: 2px solid var(--indigo);
+  padding: 28px;
+  position: relative;
+}
+
+.vermilion-stamp {
+  display: inline-block;
+  border: 2px solid var(--vermilion);
+  color: var(--vermilion);
+  font-size: 0.75rem;
+  font-weight: 900;
+  padding: 2px 8px;
+  margin-bottom: 14px;
+}
+
+.seal-quote {
+  font-size: 0.95rem;
+  color: var(--ink-text);
+  margin-bottom: 18px;
+}
+
+.seal-author {
+  font-weight: 800;
+  color: var(--indigo);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--rule-line);
+  padding-top: 12px;
+}
+
+/* Chronicle Article Cards (6 Articles) */
+.chronicle-blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.blog-paper-card {
+  background: var(--paper-card);
+  border: 2px solid var(--indigo);
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 5px 5px 0px var(--rule-line);
+}
+
+.blog-meta-pill {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--amber);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.blog-card-h3 {
+  font-family: 'Songti SC', 'Noto Serif SC', serif;
+  font-size: 1.2rem;
+  line-height: 1.42;
+  margin-bottom: 12px;
+}
+
+.blog-card-h3 a, .blog-card-h3 a:visited {
+  color: var(--indigo);
+  text-decoration: none;
+}
+
+.blog-card-h3 a:hover {
+  color: var(--vermilion);
+}
+
+.blog-card-desc {
+  font-size: 0.92rem;
+  color: var(--ink-sub);
+  margin-bottom: 18px;
+}
+
+/* Article Detail & Subpages */
+.editorial-page-wrap {
+  padding: 60px 0 84px;
+}
+
+.manuscript-box {
+  max-width: 860px;
+  margin: 0 auto;
+  background: var(--paper-card);
+  border: 2px solid var(--indigo);
+  box-shadow: 10px 10px 0px var(--rule-line);
+  padding: 48px;
+}
+
+.manuscript-box h1 {
+  font-family: 'Songti SC', 'Noto Serif SC', serif;
+  font-size: 2.15rem;
+  color: var(--indigo);
+  line-height: 1.32;
+  margin-bottom: 16px;
+}
+
+.manuscript-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 0.86rem;
+  color: var(--ink-sub);
+  border-bottom: 2px solid var(--rule-line);
+  padding-bottom: 20px;
+  margin-bottom: 28px;
+}
+
+.manuscript-body h2 {
+  font-family: 'Songti SC', 'Noto Serif SC', serif;
+  font-size: 1.46rem;
+  color: var(--indigo);
+  margin: 32px 0 14px;
+  padding-left: 12px;
+  border-left: 4px solid var(--vermilion);
+}
+
+.manuscript-body h3 {
+  font-size: 1.18rem;
+  color: var(--amber);
+  margin: 22px 0 10px;
+}
+
+.manuscript-body p {
+  font-size: 1.02rem;
+  color: var(--ink-text);
+  margin-bottom: 18px;
+  line-height: 1.82;
+}
+
+.manuscript-cta {
+  margin-top: 38px;
+  padding: 26px;
+  background: var(--parchment-deep);
+  border: 2px solid var(--indigo);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+/* Footer */
+.ukiyo-footer {
+  background: var(--indigo-dark);
+  color: var(--parchment);
+  padding: 48px 0;
+  border-top: 4px solid var(--amber);
+}
+
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer-title-serif {
+  font-family: 'Songti SC', 'Noto Serif SC', serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  margin-bottom: 6px;
+}
+
+.footer-sub {
+  font-size: 0.9rem;
+  color: #CBD5E1;
+  margin-bottom: 6px;
+}
+
+.footer-copyright {
+  font-size: 0.82rem;
+  color: #94A3B8;
+}
+
+.footer-editorial-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-editorial-nav a, .footer-editorial-nav a:visited {
+  color: var(--amber-bright);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: underline;
+}
+
+.footer-editorial-nav a:hover {
+  color: #FFFFFF;
+}
+
+/* Responsive Media Queries (@media) - Mobile Navigation Always Visible! */
+@media (max-width: 960px) {
+  .chronicle-cards, .showcase-trio, .seal-grid, .chronicle-blog-grid {
+    grid-template-columns: 1fr;
+  }
+  .ledger-row {
+    grid-template-columns: 1fr;
+  }
+  .ledger-specs {
+    border-left: none;
+    border-right: none;
+    border-top: 1px dashed var(--rule-line);
+    border-bottom: 1px dashed var(--rule-line);
+    padding: 16px 0;
+    grid-template-columns: 1fr;
+  }
+  .faq-two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .ukiyo-nav {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .ukiyo-nav-links {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+  }
+  .ukiyo-link {
+    font-size: 0.88rem;
+    padding: 4px 6px;
+  }
+  .nav-seal-btn, .btn-vermilion, .btn-amber-ink {
+    width: 100%;
+    text-align: center;
+  }
+  .hero-serif-title {
+    font-size: 2.1rem;
+  }
+  .manuscript-box {
+    padding: 26px 18px;
+  }
+}

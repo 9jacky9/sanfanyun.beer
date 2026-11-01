@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>家庭NAS与软路由旁路网关搭建实录：让全屋智能设备无感畅联全球 - 三番云</title>
+  <meta name="description" content="手把手教你利用家庭群晖/威联通NAS或软路由部署Docker旁路透明网关，实现Apple TV、游戏主机与全屋设备无感分流加速。">
+  <link rel="canonical" href="https://sanfanyun.beer/home-nas-docker-proxy-gateway-setup.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="家庭NAS与软路由旁路网关搭建实录：让全屋智能设备无感畅联全球 - 三番云">
+  <meta property="og:description" content="手把手教你利用家庭群晖/威联通NAS或软路由部署Docker旁路透明网关，实现Apple TV、游戏主机与全屋设备无感分流加速。">
+  <meta property="og:url" content="https://sanfanyun.beer/home-nas-docker-proxy-gateway-setup.html">
+  <meta property="og:site_name" content="三番云">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="ukiyo-header">
+  <div class="editorial-wrap header-row">
+    <a href="index.html" class="ukiyo-brand" aria-label="三番云首页">
+      <svg class="ukiyo-logo-svg" viewBox="0 0 236 54" xmlns="http://www.w3.org/2000/svg" aria-label="三番云">
+  <defs>
+    <linearGradient id="indigoWave" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1D3557"/>
+      <stop offset="100%" stop-color="#2B4C7E"/>
+    </linearGradient>
+    <linearGradient id="amberCloud" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+  <!-- Ukiyo-e Seal & Triple Wave Crest Emblem -->
+  <rect x="4" y="6" width="66" height="42" rx="4" fill="#FBF7F0" stroke="#1D3557" stroke-width="2"/>
+  <circle cx="52" cy="18" r="8" fill="#C1121F" opacity="0.9"/>
+  <!-- Wave 1, 2, 3 -->
+  <path d="M6 34 Q18 20 30 30 T54 28 T68 34 L68 46 L6 46 Z" fill="url(#indigoWave)"/>
+  <path d="M6 39 Q22 28 38 37 T68 36 L68 46 L6 46 Z" fill="url(#amberCloud)" opacity="0.88"/>
+  <path d="M12 24 Q24 14 36 22" fill="none" stroke="#1D3557" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- Editorial Calligraphy-style Typography -->
+  <text x="80" y="37" font-family="'Songti SC', 'Noto Serif SC', 'STSong', 'SimSun', serif" font-weight="900" font-size="28" fill="#1D3557" letter-spacing="3">三番云</text>
+  <!-- Vermilion Stamp Mark -->
+  <rect x="178" y="13" width="44" height="24" rx="2" fill="#C1121F"/>
+  <text x="184" y="29" font-family="sans-serif" font-weight="800" font-size="11" fill="#FBF7F0" letter-spacing="1">三叠浪</text>
+</svg>
+    </a>
+    <nav class="ukiyo-nav" aria-label="主导航">
+      <div class="ukiyo-nav-links">
+        <a href="index.html#triple-waves" class="ukiyo-link">三叠海缆</a>
+        <a href="index.html#theater-ai" class="ukiyo-link">视听与智算</a>
+        <a href="index.html#ledger-plans" class="ukiyo-link">席位雅鉴</a>
+        <a href="index.html#editorial-faq" class="ukiyo-link">释疑卷宗</a>
+        <a href="index.html#seal-reviews" class="ukiyo-link">读者手札</a>
+        <a href="voyage-chronicle.html" class="ukiyo-link active">航海日志</a>
+      </div>
+      <a href="https://ww012.twilightaff.com/#/?code=A56DH1Af" class="btn-vermilion nav-seal-btn" rel="nofollow" target="_blank">立即扬帆试用</a>
+    </nav>
+  </div>
+</header>
+  <main class="editorial-page-wrap">
+    <div class="editorial-wrap">
+      <article class="manuscript-box">
+        <h1>家庭NAS与软路由旁路网关搭建实录：让全屋智能设备无感畅联全球</h1>
+        <div class="manuscript-meta"><span>专栏：全屋网络</span><span>撰稿日期：2026-10-23</span><span>编纂：三番云航海编辑部</span><span><a href="voyage-chronicle.html">返回航海日志总辑</a></span></div>
+        <div class="manuscript-body">
+          
+<h2>告别每台设备逐个开启客户端的繁琐时代</h2>
+<p>在现代数字家庭中，需要连接互联网的终端早已不再局限于一台电脑和一部手机。客厅里有Apple TV机顶盒、索尼电视、PS5与Switch游戏主机；书房里有Macスタジオ、Windows工作站以及24小时运转的NAS私有云存储；全屋各处还散落着智能音箱与平板电脑。如果每次想看海外流媒体或更新游戏补丁时，都要在每台设备上分别配置代理软件，不仅维护起来心力交瘁，而且许多智能电视与游戏主机系统本身根本不支持直接安装加密代理客户端。</p>
+
+<h2>什么是旁路透明网关（旁路由）架构？</h2>
+<p>为了在不改动家里原有主路由器拨号与Wi-Fi覆盖稳定性的前提下，赋予全屋设备无感跨国加速能力，“旁路网关（Side Router / Bypass Gateway）”成为了家庭网络改造的黄金标准方案。简单来说，主路由器依然负责宽带PPPoE拨号、DHCP地址分配与无线信号发射；而局域网内的NAS容器或微型软路由则作为“协处理器”，专门负责接管需要精准分流与跨国加速的数据包。</p>
+
+<h3>方案对比：独立软路由盒子还是复用家庭NAS？</h3>
+<p>如果家中已经有一台常年开机的x86架构NAS（如群晖DS923+、威联通TS-464C或自建Unraid服务器），那么完全无需额外花钱添置硬件。直接利用NAS内置的Docker引擎或Virtual Machine虚拟机部署一套轻量级OpenWrt或Sing-box透明网关容器，即可在几瓦特的极低功耗下跑满千兆光纤专线。</p>
+
+<h3>核心网络拓扑：macvlan模式与独立局域网IP</h3>
+<p>在NAS的Docker环境中部署透明网关时，最关键的一步是将容器网络模式配置为<code>macvlan</code>并开启宿主网卡混杂模式。这样可以让网关容器在家庭局域网中获得一个与主路由器同网段的独立静态IP地址（例如主路由是192.168.1.1，旁路网关设为192.168.1.2），从而避免复杂的端口映射与NAT多层转换损耗。更多针对不同品牌路由器的底层参数设定，可以参考<a href="https://tizilab.net/" target="_blank">家庭全屋智能科学上网配置百科</a>中的详细图文手册。</p>
+
+<h2>全屋按需接管：既快又稳的不掉线秘诀</h2>
+<p>许多新手在初次折腾旁路由时，喜欢在主路由的DHCP设置中直接把全局默认网关改成旁路由IP。这种做法虽然能让全屋所有设备瞬间生效，但也埋下了一个隐患：一旦你在升级NAS系统或重启容器，家里连国内网站都会暂时断网。</p>
+
+<h3>按设备静态指定网关的优雅实践</h3>
+<p>更稳妥、更具工程美感的做法是：保持主路由默认DHCP参数不变，让家人的普通手机和智能家电依然直接走主路由纯净直连；仅在需要跨区解锁的Apple TV、PS5游戏机以及你自己的主力工作电脑上，手动将网络设置中的“路由器/网关”和“DNS服务器”指向192.168.1.2。这样既做到了指哪打哪的零感知加速，又保障了家庭基础网络的绝对可靠。</p>
+
+<h3>Fake-IP模式与防DNS污染秒开调优</h3>
+<p>在旁路网关内核配置中，强烈建议开启Fake-IP增强模式配合国内外域名分流表。当Apple TV发起视频点播请求时，网关会在0.1毫秒内立即返回一个虚拟映射IP使应用层瞬間完成连接建立，同时在后台通过加密IEPL专线直接向海外目标发起无污染请求，彻底消除跨国DNS解析等待。</p>
+
+<h2>结语：一次配置，全屋长久受用</h2>
+<p>花一个周末下午的时间搭建好家庭NAS旁路网关，并填入高稳定性的三线BGP与IEPL专线订阅地址，从此无论是拿起手柄联机还是打开电视追剧，全球优质数字内容皆可信手拈来。</p>
+
+        </div>
+        <div class="manuscript-cta">
+          <div>
+            <strong style="font-size: 1.15rem; color: #1D3557; display: block;">即刻登船，畅享三叠跨洋海底光缆专线</strong>
+            <span style="font-size: 0.92rem; color: #4B5563;">原生解锁全球4K流媒体与AI智算工具，晚高峰稳若泰山。</span>
+          </div>
+          <a href="https://ww012.twilightaff.com/#/?code=A56DH1Af" class="btn-vermilion" rel="nofollow" target="_blank">立即免费试用</a>
+        </div>
+      </article>
+    </div>
+  </main>
+  <footer class="ukiyo-footer">
+  <div class="editorial-wrap footer-row">
+    <div class="footer-col-left">
+      <div class="footer-title-serif">三番云</div>
+      <p class="footer-sub">浮世三叠跨洋光缆专线 · 温润如玉的全天候高速网络体验</p>
+      <p class="footer-copyright">© 2026 三番云 版权所有</p>
+    </div>
+    <nav class="footer-editorial-nav" aria-label="底部导航">
+      <a href="sitemap.html">网站地图</a>
+      <a href="about.html">关于我们</a>
+      <a href="terms.html">服务条款</a>
+      <a href="privacy.html">隐私政策</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>
